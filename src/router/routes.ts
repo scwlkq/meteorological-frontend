@@ -1,17 +1,20 @@
+import Home from "../pages/Home.vue";
+import Test from "../pages/Test.vue";
+
 const routes = [
     {
         path: "/",
-        redirect:'/login'
+        name: "Home",
+        component: Home,
+        redirect: '/test',
+        children: [
+            {
+                path: "/test",
+                name: "Test",
+                component: Test
+            }
+        ]
     },
-
-    {
-        path: "/test",
-        component:import("../pages/test/TestPage.vue")
-    },
-    {
-        path: "/login",
-        component:import("../pages/login/LoginPage.vue")
-    }
 ]
 
 export default routes;

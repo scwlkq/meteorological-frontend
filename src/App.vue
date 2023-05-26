@@ -1,27 +1,21 @@
-<script setup lang="ts">
-import {onMounted, ref, watch} from "vue";
-import LoginForm from '../src/components/LoginForm.vue'
-import {useUserStore} from "./store/userStore";
-const userStore = useUserStore();
-const isShow = ref(false);
-onMounted(()=>{
-  console.log(userStore.getIsShowModal())
-  isShow.value = userStore.getIsShowModal();
-})
-watch(
-    () => userStore.getIsShowModal(),
-    (value) => {
-      console.log("监听到的store中的：" +value)
-      isShow.value = value;
-    },{
-      immediate:true
-    })
-</script>
-
 <template>
-  <login-form :isLoginVisible="isShow"/>
-  <router-view/>
+  <div id="app">
+    <router-view/>
+  </div>
 </template>
 
-<style scoped>
+<script setup lang="ts">
+
+</script>
+
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin: 0;
+  padding: 0;
+}
 </style>
