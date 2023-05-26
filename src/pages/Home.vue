@@ -61,10 +61,15 @@ const collapsed = ref<boolean>(false);
   transition: color 0.3s;
 }
 
+#app > section > section > header > span > svg {
+  height: 27px;
+  width: 27px;
+}
+
 .trigger{
   float: left;
   margin-left: 30px;
-  margin-top: 25px;
+  margin-top: 20px;
 }
 
 #components-layout-demo-custom-trigger .trigger:hover {
