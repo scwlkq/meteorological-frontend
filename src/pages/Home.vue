@@ -61,6 +61,12 @@ const collapsed = ref<boolean>(false);
   transition: color 0.3s;
 }
 
+.trigger{
+  float: left;
+  margin-left: 30px;
+  margin-top: 25px;
+}
+
 #components-layout-demo-custom-trigger .trigger:hover {
   color: #1890ff;
 }
