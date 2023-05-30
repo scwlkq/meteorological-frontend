@@ -4,7 +4,7 @@
       <div class="logo">
         <img :src="logo" />
       </div>
-      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
+      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline" @click="handleClick(key)">
         <a-menu-item key="1">
           <user-outlined/>
           <span>nav 1</span>
@@ -37,7 +37,7 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
-
+import {useRoute, useRouter} from "vue-router";
 import {
   UserOutlined,
   VideoCameraOutlined,
@@ -48,8 +48,21 @@ import {
 import {ref} from 'vue';
 import logo from "../assets/logo.png"
 
+
 const selectedKeys = ref<string[]>(['1']);
 const collapsed = ref<boolean>(false);
+const router = useRouter();
+const route = useRoute();
+
+const handleClick = (key:string)=>{
+  console.log(key)
+  switch (key){
+    case '/test':
+        router.push("/test");
+        break;
+    case '/':
+  }
+}
 
 </script>
 <style>

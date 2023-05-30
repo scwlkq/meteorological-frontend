@@ -55,4 +55,11 @@ public type PPostContentDTO = {
     // 内容排序
     sort:number
 }
+public type Picture = {
+
+    url:string
+
+    title:number
+
+}
 

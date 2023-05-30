@@ -5,8 +5,11 @@
 </template>
 
 <script lang="ts" setup>
-import logo from "../assets/logo.png"
+import {getLatestPicture} from "../apis/apis";
 
+const logo = getLatestPicture();
+
+console.log(logo);
 </script>
 
 <style scoped>

@@ -81,3 +81,8 @@ export const deleteQuestionnaireRequest = async (id: string) => {
         }
     });
 }
+
+export const getLatestPicture = async () => {
+    return await myAxios.get("/getLatestPicture", {
+    });
+}
