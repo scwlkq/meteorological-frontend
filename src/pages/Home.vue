@@ -4,16 +4,16 @@
       <div class="logo">
         <img :src="logo" />
       </div>
-      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline" @click="handleClick(key)">
-        <a-menu-item key="1">
+      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline" >
+        <a-menu-item key="/test">
           <user-outlined/>
           <span>nav 1</span>
         </a-menu-item>
-        <a-menu-item key="2">
+        <a-menu-item key="/test1">
           <video-camera-outlined/>
           <span>nav 2</span>
         </a-menu-item>
-        <a-menu-item key="3">
+        <a-menu-item key="/test2">
           <upload-outlined/>
           <span>nav 3</span>
         </a-menu-item>
@@ -37,7 +37,7 @@
   </a-layout>
 </template>
 <script lang="ts" setup>
-import {useRoute, useRouter} from "vue-router";
+import {useRouter} from "vue-router";
 import {
   UserOutlined,
   VideoCameraOutlined,
@@ -45,24 +45,18 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons-vue';
-import {ref} from 'vue';
+import {ref, watch} from 'vue';
 import logo from "../assets/logo.png"
 
 
-const selectedKeys = ref<string[]>(['1']);
-const collapsed = ref<boolean>(false);
+const selectedKeys = ref<string[]>(['/test']);
+const collapsed :any = ref<boolean>(false);
 const router = useRouter();
-const route = useRoute();
 
-const handleClick = (key:string)=>{
-  console.log(key)
-  switch (key){
-    case '/test':
-        router.push("/test");
-        break;
-    case '/':
-  }
-}
+watch(()=>selectedKeys.value,(value,newVal:any)=>{
+  router.push(selectedKeys.value[0])
+},{immediate:true})
+
 
 </script>
 <style>
