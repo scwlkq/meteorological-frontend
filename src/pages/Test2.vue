@@ -1,63 +1,84 @@
 <template>
-
-  <div style="width: 100%">
-
-    <a-space>
-      <a-select
-          v-model:value="selectKey"
-          style="width: 300px"
-          @change="handleChange"
-      >
-        <a-select-option value="1小时降水量">1小时降水量</a-select-option>
-        <a-select-option value="6小时降水量">6小时降水量</a-select-option>
-        <a-select-option value="24小时降水量">24小时降水量</a-select-option>
-        <a-select-option value="近30天降水量">近30天降水量</a-select-option>
-        <a-select-option value="近30天降水量距平">近30天降水量距平</a-select-option>
-      </a-select>
-    </a-space>
-
-    <div style="display: flex;flex-direction: row;justify-content: space-around;margin-top: 20px">
-      <a-card hoverable v-for="item in pictures" :key="item.url" v-show="item.url !== ''">
-        <template #cover>
-          <img class="picture" :src="item.url" style="height: 40vh;background-size: cover;"/>
-        </template>
-        <a-card-meta :title="item.title">
-          <template #description>{{ item.date }}</template>
-        </a-card-meta>
-      </a-card>
-    </div>
+  <div>
+    <div id="container"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {getLatestPicture} from "../apis/apis";
-import {onMounted, ref} from "vue";
-import {message} from "ant-design-vue";
+import {Line} from '@antv/g2plot';
+import {queryWeatherByCounty} from "../apis/apis";
 
-const selectKey = ref('1小时降水量');
-const pictures: any = ref([]);
+const res = await queryWeatherByCounty('59626');
 
-const handleChange = async () => {
-  console.log(selectKey.value)
-  const res = await getLatestPicture(selectKey.value);
 
-  if (res.data.code === 0) {
-    pictures.value = res.data.data;
-  }
-  console.log(pictures.value)
+const data: { year: any; value: any; category: string; }[] = [];
+console.log(data);
+for(let i = 0;i<res.data.tempchart.length;i++){
+  const cur = res.data.tempchart[i];
+  data.push({
+    year:cur.time,
+    value: cur.max_temp,
+    category:"max_temp",
+  });
+  data.push({
+    year:cur.time,
+    value: cur.mim_temp,
+    category:"mim_temp",
+  });
 }
+console.log(data);
+//   [
+// {
+//   "year": "1850",
+//   "value": 0,
+//   "category": "Liquid fuel"
+// },
+// {
+//   "year": "1850",
+//   "value": 54,
+//   "category": "Solid fuel"
+// },
+// {
+//   "year": "1850",
+//   "value": 0,
+//   "category": "Gas fuel"
+// },
+// {
+//   "year": "1850",
+//   "value": 0,
+//   "category": "Cement production"
+// },
+// {
+//   "year": "1850",
+//   "value": 0,
+//   "category": "Gas flarinl"
+// }];
 
-onMounted(async () => {
-  await handleChange()
-})
+
+const line = new Line('container', {
+  data,
+  xField: 'year',
+  yField: 'value',
+  seriesField: 'category',
+  xAxis: {
+    type: 'time',
+  },
+  yAxis: {
+    label: {
+      // 数值格式化为千分位
+      formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),
+    },
+  },
+});
+
+line.render();
+
 
 </script>
 
 <style scoped>
-. picture {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
+#container {
+  width: 80%;
+  height: 80vh;
 }
 </style>

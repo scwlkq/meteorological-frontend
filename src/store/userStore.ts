@@ -10,7 +10,6 @@ const useUserStore = defineStore('userStore', {
         (
             {
                 username: '',
-                authorization: '',
                 isShowModal:false,
                 info:'',
             }
@@ -29,16 +28,6 @@ const useUserStore = defineStore('userStore', {
         getIsShowModal(){
             return this.isShowModal;
         },
-        getAuthorization(){
-          return this.authorization;
-        },
-        setAuthorization(authorization:string){
-            this.authorization=authorization
-        },
-        clearToken(){
-            myAxios.defaults.headers.token = ''
-            this.authorization = ''
-        }
     }
 })
 

@@ -12,12 +12,6 @@ const myAxios = axios.create({
 
 // 添加请求拦截器
 myAxios.interceptors.request.use(function (config) {
-    if(useUserStore().getAuthorization()){
-        // @ts-ignore
-        config.headers.Authorization =  useUserStore().getAuthorization()
-        return config;
-    }
-    // 在发送请求之前做些什么
     return config;
 }, function (error) {
     // 对请求错误做些什么
@@ -30,18 +24,36 @@ myAxios.interceptors.response.use(function (response) {
     // 对响应数据做点什么
     return response
 }, function (error) {
-    // 超出 2xx 范围的状态码都会触发该函数。
-    // 对响应错误做点什么
-    if(error.response){
-        const {status} = error.response;
-        if(status === 403){
-            //开启登录
-            useUserStore().isShowModal = true
-            return Promise.reject(error);
-        }
-    }
     return Promise.reject(error);
 });
+
+
+
+// 气象的axios
+const qiXiangAxios = axios.create({
+    baseURL: "http://www.nmc.cn",
+    timeout: 5000
+});
+
+// 添加请求拦截器
+qiXiangAxios.interceptors.request.use(function (config) {
+    return config;
+}, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+});
+
+// 添加响应拦截器
+qiXiangAxios.interceptors.response.use(function (response) {
+    // 2xx 范围内的状态码都会触发该函数。
+    // 对响应数据做点什么
+    return response
+}, function (error) {
+    return Promise.reject(error);
+});
+
+
 export {
-    myAxios
+    myAxios,
+    qiXiangAxios
 }

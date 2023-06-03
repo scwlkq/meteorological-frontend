@@ -1,7 +1,6 @@
 <template>
 
   <div style="width: 100%">
-
     <a-space>
       <a-select
           v-model:value="selectKey"
