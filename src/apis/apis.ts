@@ -26,9 +26,17 @@ export const queryCountiesByProvince = async (req:string) =>{
 
 // http://www.nmc.cn/rest/weather?stationid=59315
 export const queryWeatherByCounty = async (req:string) =>{
-    return await qiXiangAxios.get("/rest/weather/",{
+    return await myAxios.get("/getTempChart",{
         params: {
-            stationid: req
+            stationId: req
+        }
+    });
+}
+
+export const queryWeatherInfo = async (req:string) =>{
+    return await myAxios.get("/getInfo",{
+        params: {
+            stationId: req
         }
     });
 }
