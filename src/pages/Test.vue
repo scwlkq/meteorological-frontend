@@ -15,7 +15,7 @@
       </a-select>
     </a-space>
 
-    <div style="display: flex;flex-direction: row;justify-content: space-around;margin-top: 20px">
+    <div style="display: flex;flex-direction: row;justify-content: space-around;margin-top: 20px;">
       <a-card hoverable v-for="item in pictures" :key="item.url" v-show="item.url !== ''">
         <template #cover>
           <img class="picture" :src="item.url" style="height: 45vh;background-size: cover;"/>
