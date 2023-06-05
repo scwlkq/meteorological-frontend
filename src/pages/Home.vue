@@ -1,6 +1,7 @@
 <template>
   <a-layout>
-    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
+    <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible
+                    :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0 }">
       <div class="logo">
         <img :src="logo" />
       </div>

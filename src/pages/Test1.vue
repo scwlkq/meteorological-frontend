@@ -22,21 +22,22 @@
       </a-select-option>
     </a-select>
     <a-divider></a-divider>
-    <a-descriptions title="天气情况">
-      <a-descriptions-item label="天气质量">{{ info.airText }}</a-descriptions-item>
-      <a-descriptions-item label="时间">{{ info.forecastTime }}</a-descriptions-item>
-      <a-descriptions-item label="天气">{{ info.weather }}</a-descriptions-item>
-      <a-descriptions-item label="风向">{{ info.windDirect }}</a-descriptions-item>
-      <a-descriptions-item label="风级">{{ info.windPower }}</a-descriptions-item>
-      <a-descriptions-item label="风速">{{ info.windSpeed }}m/s</a-descriptions-item>
-    </a-descriptions>
+    <div style="float: right;width: 80vw;text-align: center">
+      <a-descriptions title="天气情况">
+        <a-descriptions-item label="天气质量">{{ info.airText }}</a-descriptions-item>
+        <a-descriptions-item label="时间">{{ info.forecastTime }}</a-descriptions-item>
+        <a-descriptions-item label="天气">{{ info.weather }}</a-descriptions-item>
+        <a-descriptions-item label="风向">{{ info.windDirect }}</a-descriptions-item>
+        <a-descriptions-item label="风级">{{ info.windPower }}</a-descriptions-item>
+        <a-descriptions-item label="风速">{{ info.windSpeed }}m/s</a-descriptions-item>
+      </a-descriptions>
+    </div>
     <a-divider></a-divider>
-    <div style="display: flex;flex-direction: row;justify-content: space-around;">
+    <div style="float:right;width: 80vw">
       <a-card title="最近气温">
-        <a-card-grid style="width: 19%; text-align: center" v-for="item in weather">
+        <a-card-grid style="width: 14.28%; float:right;text-align: center;" v-for="item in weather">
           <p>日期: {{ item.time }}</p>
-          <p>最高温度: {{ item.max_temp }}</p>
-          <p>最低温度: {{ item.min_temp }}</p>
+          <p>温度: {{ item.min_temp }}°C~{{item.max_temp}}°C</p>
         </a-card-grid>
       </a-card>
     </div>
