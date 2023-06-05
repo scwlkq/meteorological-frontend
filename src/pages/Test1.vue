@@ -23,7 +23,7 @@
     </a-select>
     <a-divider></a-divider>
     <div style="float: right;width: 80vw;text-align: center">
-      <a-descriptions title="天气情况">
+      <a-descriptions title="天气情况" style="background-color: #d9d9d9">
         <a-descriptions-item label="天气质量">{{ info.airText }}</a-descriptions-item>
         <a-descriptions-item label="时间">{{ info.forecastTime }}</a-descriptions-item>
         <a-descriptions-item label="天气">{{ info.weather }}</a-descriptions-item>
