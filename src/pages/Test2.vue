@@ -1,46 +1,30 @@
 <template>
   <div>
-    <div id="container"></div>
-    1231323
+    <a-card hoverable style="width: 70vw">
+      <template #cover>
+        <img alt="example" :src="wordCloudPicture"/>
+      </template>
+      <a-card-meta title="词云图">
+        <template #description>数据来源：微博作者 中国气象爱好者首页</template>
+      </a-card-meta>
+    </a-card>
   </div>
 </template>
 
-<!--<script lang="ts" setup>-->
-<!--import {Line} from '@antv/g2plot';-->
-<!--import {onMounted} from "vue";-->
-<!--import {queryWeatherByCounty} from "../apis/apis";-->
+<script lang="ts" setup>
+import {getWordCloudPicture, queryAllProvinces} from "../apis/apis";
+import {onMounted, ref} from "vue";
+const wordCloudPicture = ref('');
 
-<!--let data= [{},{}];-->
-<!--onMounted(async () => {-->
-<!--  data = (await queryWeatherByCounty("57894")).data;-->
-<!--  const line = new Line('container', {-->
-<!--    data,-->
-<!--    xField: 'year',-->
-<!--    yField: 'value',-->
-<!--    seriesField: 'category',-->
-<!--    xAxis: {-->
-<!--      type: 'time',-->
-<!--    },-->
-<!--    yAxis: {-->
-<!--      label: {-->
-<!--        // 数值格式化为千分位-->
-<!--        formatter: (v) => `${v}`.replace(/\d{1,3}(?=(\d{3})+$)/g, (s) => `${s},`),-->
-<!--      },-->
-<!--    },-->
-<!--  });-->
+onMounted(async () => {
+  const res = await getWordCloudPicture();
+  wordCloudPicture.value = res.data;
+})
 
-<!--  line.render();-->
-<!--})-->
+</script>
+
+<style scoped>
 
 
 
-
-
-<!--</script>-->
-
-<!--<style scoped>-->
-<!--/*#container {*/-->
-<!--/*  width: 80%;*/-->
-<!--/*  height: 80vh;*/-->
-<!--/*}*/-->
-<!--</style>-->
+</style>

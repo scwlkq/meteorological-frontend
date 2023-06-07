@@ -4,6 +4,8 @@ import {useUserStore} from "../store/userStore.ts";
 // 根据当前的env决定请求头
 const baseURL_TEMP = import.meta.env.DEV ? import.meta.env.VITE_BASE_URL : import.meta.env.VITE_BASE_URL_PROD
 
+const python_baseURL_TEMP = import.meta.env.DEV ? import.meta.env.PYTHON_BASE_URL : import.meta.env.PYTHON_BASE_URL_PRD
+
 const myAxios = axios.create({
     baseURL: baseURL_TEMP,
     timeout: 5000,
@@ -26,7 +28,6 @@ myAxios.interceptors.response.use(function (response) {
 }, function (error) {
     return Promise.reject(error);
 });
-
 
 
 // 气象的axios
@@ -53,7 +54,33 @@ qiXiangAxios.interceptors.response.use(function (response) {
 });
 
 
+// py的axios
+const pythonAxios = axios.create({
+    baseURL: "http://localhost:8087/polls",
+    timeout: 5000
+});
+// 添加请求拦截器
+pythonAxios.interceptors.request.use(function (config) {
+    // @ts-ignore
+    // config.headers.Authorization =  useUserStore().getAuthorization()
+    return config;
+}, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+});
+
+// 添加响应拦截器
+pythonAxios.interceptors.response.use(function (response) {
+    // 2xx 范围内的状态码都会触发该函数。
+    // 对响应数据做点什么
+    return response
+}, function (error) {
+    return Promise.reject(error);
+});
+
+
 export {
     myAxios,
-    qiXiangAxios
+    qiXiangAxios,
+    pythonAxios
 }

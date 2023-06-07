@@ -1,4 +1,4 @@
-import {myAxios, qiXiangAxios} from "../utils/MyAnxios";
+import {myAxios, pythonAxios, qiXiangAxios} from "../utils/MyAnxios";
 import {latestPictureRes} from "../models/requests/PictureData";
 
 
@@ -39,4 +39,8 @@ export const queryWeatherInfo = async (req:string) =>{
             stationId: req
         }
     });
+}
+
+export const getWordCloudPicture = async () =>{
+    return await pythonAxios.get("/");
 }
